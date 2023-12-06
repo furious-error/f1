@@ -40,7 +40,8 @@ class _RaceSchedulePageState extends State<RaceSchedulePage> {
     return SafeArea(
       child: Column(
         children: [
-          _buildNextRace(),
+          // _buildNextRace(),
+          _seasonEndCard(),
           Expanded(child: _buildRaceScheduleList()),
         ],
       ),
@@ -82,97 +83,158 @@ class _RaceSchedulePageState extends State<RaceSchedulePage> {
     );
   }
 
-  Widget _buildRaceScheduleCard(BuildContext context, RaceScheduleModel rsModel) {
+  Widget _buildRaceScheduleCard(
+      BuildContext context, RaceScheduleModel rsModel) {
     try {
       return ListView.builder(
-      itemCount: rsModel.mRData!.raceTable!.races!.length,
-      itemBuilder: (context, index) {
-        var dataSchedule = rsModel.mRData!.raceTable!.races!;
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => RaceDetailsPage(
-                  rsModel: rsModel,
-                  index: index,
-                ),
-              ),
-            );
-          },
-          child: Container(
-            margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 0,
-                      blurRadius: 10,
-                    ),
-            ],
-          ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // CachedNetworkImage(imageUrl: trackLayoutMap[dataSchedule[index].circuit!.circuitId!]!,
-                // height: 80,
-                // width: 80,
-                // ),
-                // const SizedBox(width: 10,),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text('ROUND ${dataSchedule[index].round!}', style: const TextStyle(fontFamily: 'Formula1', fontSize: 12, fontWeight: FontWeight.w500, color: Color.fromRGBO(225, 6, 0, 1),),),
-                        const SizedBox(width: 5,),
-                        checkDatetime('${dataSchedule[index].date} ${dataSchedule[index].time}') ? 
-                        const Text('COMPLETED', 
-                        style: TextStyle(fontFamily: 'Formula1', fontSize: 12, fontWeight: FontWeight.w500, color: Color.fromRGBO(225, 6, 0, 1),),
-                        ) : const SizedBox(),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                        "${convertDateFormat1('${dataSchedule[index].firstPractice!.date}, ${dataSchedule[index].firstPractice!.time!}')} - ${convertDateFormat1('${dataSchedule[index].date!}, ${dataSchedule[index].time!}')}", style: const TextStyle(fontFamily: 'Formula1', fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black,),),
-                    // const SizedBox(height: 5,),
-                    const SizedBox(height: 8,),
-                    Text(dataSchedule[index].circuit!.location!.country!, style: const TextStyle(fontFamily: 'Formula1', fontSize: 18, fontWeight: FontWeight.w500, color: Colors.black,),),
-                        const SizedBox(
-                          height: 2,
-                        ),
-                        Text(dataSchedule[index].raceName!, style: const TextStyle(fontFamily: 'Formula1', fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black,),),
-                        // const SizedBox(
-                        //   width: 10,
-                        // ),
-                  ],
-                ),
-                const Expanded(child: SizedBox()),
-                // const SizedBox(),
-                SizedBox(
-                  height: 80,
-                  width: 80,
-                  child: CachedNetworkImage(imageUrl: trackLayoutMap[dataSchedule[index].circuit!.circuitId!]!,
-                  // height: 80,
-                  // width: 80,
-                  fit: BoxFit.contain,
+        itemCount: rsModel.mRData!.raceTable!.races!.length,
+        itemBuilder: (context, index) {
+          var dataSchedule = rsModel.mRData!.raceTable!.races!;
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => RaceDetailsPage(
+                    rsModel: rsModel,
+                    index: index,
                   ),
                 ),
-                const SizedBox(width: 10,),
-                const Icon(Icons.arrow_forward_ios_rounded, size: 30,),
-              ],
+              );
+            },
+            child: Container(
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 0,
+                    blurRadius: 10,
+                  ),
+                ],
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // CachedNetworkImage(imageUrl: trackLayoutMap[dataSchedule[index].circuit!.circuitId!]!,
+                  // height: 80,
+                  // width: 80,
+                  // ),
+                  // const SizedBox(width: 10,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'ROUND ${dataSchedule[index].round!}',
+                            style: const TextStyle(
+                              fontFamily: 'Formula1',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Color.fromRGBO(225, 6, 0, 1),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          checkDatetime(
+                                  '${dataSchedule[index].date} ${dataSchedule[index].time}')
+                              ? const Text(
+                                  'COMPLETED',
+                                  style: TextStyle(
+                                    fontFamily: 'Formula1',
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color.fromRGBO(225, 6, 0, 1),
+                                  ),
+                                )
+                              : const SizedBox(),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "${convertDateFormat1('${dataSchedule[index].firstPractice!.date}, ${dataSchedule[index].firstPractice!.time!}')} - ${convertDateFormat1('${dataSchedule[index].date!}, ${dataSchedule[index].time!}')}",
+                        style: const TextStyle(
+                          fontFamily: 'Formula1',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // const SizedBox(height: 5,),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        dataSchedule[index].circuit!.location!.country!,
+                        style: const TextStyle(
+                          fontFamily: 'Formula1',
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 2,
+                      ),
+                      Text(
+                        dataSchedule[index].raceName!,
+                        style: const TextStyle(
+                          fontFamily: 'Formula1',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // const SizedBox(
+                      //   width: 10,
+                      // ),
+                    ],
+                  ),
+                  const Expanded(child: SizedBox()),
+                  // const SizedBox(),
+                  SizedBox(
+                    height: 80,
+                    width: 80,
+                    child: CachedNetworkImage(
+                      imageUrl: trackLayoutMap[
+                          dataSchedule[index].circuit!.circuitId!]!,
+                      // height: 80,
+                      // width: 80,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    size: 30,
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        },
+      );
     } catch (e) {
-      return const Center(child: Text('Some Error occurred',style: TextStyle(fontFamily: 'Formula1', fontSize: 20, fontWeight: FontWeight.w500, color: Color.fromRGBO(225, 6, 0, 1),),),);
+      return const Center(
+        child: Text(
+          'Some Error occurred',
+          style: TextStyle(
+            fontFamily: 'Formula1',
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: Color.fromRGBO(225, 6, 0, 1),
+          ),
+        ),
+      );
     }
   }
 
@@ -215,94 +277,190 @@ class _RaceSchedulePageState extends State<RaceSchedulePage> {
     var dataNextRace = nrModel.mRData!.raceTable!.races![0];
     try {
       return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                // color: Colors.green,
+                height: 60,
+                width: 80,
+                child: SvgPicture.asset(
+                  F1,
+                  // height: 90, width: 50,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              // const Text('Season', style: TextStyle(
+              //       fontFamily: 'Formula1',
+              //       fontSize: 16,
+              //     ),),
+              //     const SizedBox(width: 10,),
+              Text(
+                nrModel.mRData!.raceTable!.season!,
+                style: const TextStyle(
+                  fontFamily: 'Formula1',
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+          // const Text("Next Race", style: TextStyle(fontFamily: 'Formula1', fontSize: 16, fontWeight: FontWeight.w500, color: Color.fromRGBO(225, 6, 0, 1), ),),
+          // const SizedBox(height: 10,),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.15,
+            margin: const EdgeInsets.all(8),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 10,
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'ROUND ${dataNextRace.round!} - UP NEXT',
+                          style: const TextStyle(
+                            fontFamily: 'Formula1',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: Color.fromRGBO(225, 6, 0, 1),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          '${convertDateFormat1('${dataNextRace.firstPractice!.date!}, ${dataNextRace.firstPractice!.time!}')} - ${convertDateFormat1('${dataNextRace.date!}, ${dataNextRace.time!}')}',
+                          style: const TextStyle(
+                            fontFamily: 'Formula1',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    // const Expanded(child: SizedBox()),
+                    // SizedBox(width: MediaQuery.of(context).size.width*0.15,),
+                    Text(
+                      dataNextRace.circuit!.location!.country!,
+                      style: const TextStyle(
+                        fontFamily: 'Formula1',
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                      ),
+                    ),
+                    // const SizedBox(width: 40,),
+                  ],
+                ),
+                const SizedBox(
+                  height: 11,
+                ),
+                checkDatetime(
+                        '${dataNextRace.firstPractice!.date} ${dataNextRace.firstPractice!.time}')
+                    ? Column(
+                        children: const [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Race Weekend In Progress',
+                              style: TextStyle(
+                                fontFamily: 'Formula1',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : CountDowntimer(
+                        time:
+                            '${dataNextRace.firstPractice!.date} ${dataNextRace.firstPractice!.time}'),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          const Text(
+            'Race Schedule',
+            style: TextStyle(
+              fontFamily: 'Formula1',
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+              color: Color.fromRGBO(225, 6, 0, 1),
+            ),
+          ),
+        ],
+      );
+    } catch (e) {
+      return const Center(
+        child: Text(
+          'Some Error occurred',
+          style: TextStyle(
+            fontFamily: 'Formula1',
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: Color.fromRGBO(225, 6, 0, 1),
+          ),
+        ),
+      );
+    }
+  }
+
+  Widget _seasonEndCard() {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
               // color: Colors.green,
               height: 60,
               width: 80,
               child: SvgPicture.asset(
-                F1, 
-              // height: 90, width: 50, 
-              fit: BoxFit.cover,
-              ),),
-            // const Text('Season', style: TextStyle(
-            //       fontFamily: 'Formula1',
-            //       fontSize: 16,
-            //     ),),
-            //     const SizedBox(width: 10,),
-                Text(nrModel.mRData!.raceTable!.season!, style:const TextStyle(
-                  fontFamily: 'Formula1',
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                ),),
+                F1,
+                // height: 90, width: 50,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            const Text(
+              'Race Schedule',
+              style: TextStyle(
+                fontFamily: 'Formula1',
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                color: Color.fromRGBO(225, 6, 0, 1),
+              ),
+            ),
           ],
         ),
-        // const Text("Next Race", style: TextStyle(fontFamily: 'Formula1', fontSize: 16, fontWeight: FontWeight.w500, color: Color.fromRGBO(225, 6, 0, 1), ),),
-        // const SizedBox(height: 10,),
-        Container(
-          height: MediaQuery.of(context).size.height*0.15,
-          margin: const EdgeInsets.all(8),
-          padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 10,
-                    ),
-            ],
-          ),
-          child: Column(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('ROUND ${dataNextRace.round!} - UP NEXT', style: const TextStyle(fontFamily: 'Formula1', fontSize: 12, fontWeight: FontWeight.w500, color: Color.fromRGBO(225, 6, 0, 1),),),
-                      const SizedBox(height: 5,),
-                  Text('${convertDateFormat1('${dataNextRace.firstPractice!.date!}, ${dataNextRace.firstPractice!.time!}')} - ${convertDateFormat1('${dataNextRace.date!}, ${dataNextRace.time!}')}', style: const TextStyle(fontFamily: 'Formula1', fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black,),),
-                    ],
-                  ),
-                  // const Expanded(child: SizedBox()),
-                  // SizedBox(width: MediaQuery.of(context).size.width*0.15,),
-                  Text(dataNextRace.circuit!.location!.country!, style: const TextStyle(fontFamily: 'Formula1', fontSize: 24, fontWeight: FontWeight.w700, color: Colors.black,),),
-                  // const SizedBox(width: 40,),
-                ],
-                
-              ),
-              const SizedBox(height: 11,),
-              checkDatetime('${dataNextRace.firstPractice!.date} ${dataNextRace.firstPractice!.time}') ? Column(
-                children: const [
-                  SizedBox(height: 10,),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text('Race Weekend In Progress', style: TextStyle(
-                                      fontFamily: 'Formula1',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,),),
-                  ),
-                ],
-              ) : CountDowntimer(time: '${dataNextRace.firstPractice!.date} ${dataNextRace.firstPractice!.time}' ),
-              
-              
-            ],
-          ),
-        ),
-        const SizedBox(height: 8,),
-        const Text('Race Schedule', style: TextStyle(fontFamily: 'Formula1', fontSize: 20, fontWeight: FontWeight.w500, color: Color.fromRGBO(225, 6, 0, 1),),),
-      ],
+      ),
     );
-    } catch (e) {
-      return const Center(child: Text('Some Error occurred',style: TextStyle(fontFamily: 'Formula1', fontSize: 20, fontWeight: FontWeight.w500, color: Color.fromRGBO(225, 6, 0, 1),),),);
-    }
   }
 }
