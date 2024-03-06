@@ -229,7 +229,7 @@ class _DriverStandingsPageState extends State<DriverStandingsPage> {
                         Row(
                           children: [
                             const SizedBox(width: 8,),
-                            Image.asset(logoMap[dataDriver.constructors![0].constructorId!]!, height: 60, width: 40,),
+                            Image.asset(logoMap[dataDriver.constructors?[0].constructorId] ?? '', height: 60, width: 40,),
                           const SizedBox(
                             width: 8,
                           ),

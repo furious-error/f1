@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:f1_stats/bloc/next_race/next_race_bloc.dart';
 import 'package:f1_stats/bloc/next_race/next_race_event.dart';
@@ -40,8 +41,8 @@ class _RaceSchedulePageState extends State<RaceSchedulePage> {
     return SafeArea(
       child: Column(
         children: [
-          // _buildNextRace(),
-          _seasonEndCard(),
+          _buildNextRace(),
+          // _seasonEndCard(),
           Expanded(child: _buildRaceScheduleList()),
         ],
       ),
@@ -83,8 +84,7 @@ class _RaceSchedulePageState extends State<RaceSchedulePage> {
     );
   }
 
-  Widget _buildRaceScheduleCard(
-      BuildContext context, RaceScheduleModel rsModel) {
+  Widget _buildRaceScheduleCard(BuildContext context, RaceScheduleModel rsModel) {
     try {
       return ListView.builder(
         itemCount: rsModel.mRData!.raceTable!.races!.length,
@@ -141,8 +141,7 @@ class _RaceSchedulePageState extends State<RaceSchedulePage> {
                           const SizedBox(
                             width: 5,
                           ),
-                          checkDatetime(
-                                  '${dataSchedule[index].date} ${dataSchedule[index].time}')
+                          checkDatetime('${dataSchedule[index].date} ${dataSchedule[index].time}')
                               ? const Text(
                                   'COMPLETED',
                                   style: TextStyle(
@@ -203,8 +202,7 @@ class _RaceSchedulePageState extends State<RaceSchedulePage> {
                     height: 80,
                     width: 80,
                     child: CachedNetworkImage(
-                      imageUrl: trackLayoutMap[
-                          dataSchedule[index].circuit!.circuitId!]!,
+                      imageUrl: trackLayoutMap[dataSchedule[index].circuit!.circuitId!]!,
                       // height: 80,
                       // width: 80,
                       fit: BoxFit.contain,
@@ -256,9 +254,11 @@ class _RaceSchedulePageState extends State<RaceSchedulePage> {
           child: BlocBuilder<NextRaceBloc, NextRaceState>(
             builder: (context, state) {
               if (state is NextRaceInitial) {
-                return const CircularProgressIndicatorWidget();
+                // return const CircularProgressIndicatorWidget();
+                return const SizedBox();
               } else if (state is NextRaceLoading) {
-                return const CircularProgressIndicatorWidget();
+                // return const CircularProgressIndicatorWidget();
+                return const SizedBox();
               } else if (state is NextRaceLoaded) {
                 return _buildnextRaceCard(context, state.nextRaceModel);
               } else if (state is NextRaceError) {
@@ -358,14 +358,17 @@ class _RaceSchedulePageState extends State<RaceSchedulePage> {
                     ),
                     // const Expanded(child: SizedBox()),
                     // SizedBox(width: MediaQuery.of(context).size.width*0.15,),
-                    Text(
+                    AutoSizeText(
                       dataNextRace.circuit!.location!.country!,
                       style: const TextStyle(
                         fontFamily: 'Formula1',
-                        fontSize: 22,
+                        // fontSize: 22,
                         fontWeight: FontWeight.w700,
                         color: Colors.black,
                       ),
+                      maxLines: 1,
+                      maxFontSize: 24,
+                      minFontSize: 18,
                     ),
                     // const SizedBox(width: 40,),
                   ],
