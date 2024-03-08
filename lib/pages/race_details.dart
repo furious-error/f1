@@ -207,12 +207,12 @@ class _RaceDetailsPageState extends State<RaceDetailsPage> {
                                   ),
                                   DetailCard(
                                     showicon: checkDatetime(
-                                        '${dataRaceDetails.qualifying!.date} ${dataRaceDetails.qualifying!.time!}'),
-                                    nextPage: QualifyingResults(roundNo: dataRaceDetails.round),
-                                    time: convertTimeFormat(dataRaceDetails.qualifying!.time!),
-                                    date: convertDateFormat(
-                                        '${dataRaceDetails.qualifying!.date}, ${dataRaceDetails.qualifying!.time!}'),
-                                    title: 'Qualifying',
+                                        '${dataRaceDetails.sprint!.date} ${dataRaceDetails.sprint!.time!}'),
+                                    nextPage: SprintResult(roundNo: dataRaceDetails.round),
+                                    time: convertTimeFormat(dataRaceDetails.sprint!.time!),
+                                    date: convertDateFormat1(
+                                        '${dataRaceDetails.sprint!.date}, ${dataRaceDetails.sprint!.time!}'),
+                                    title: 'Sprint',
                                   ),
                                   Container(
                                     // width: 1,
@@ -221,12 +221,12 @@ class _RaceDetailsPageState extends State<RaceDetailsPage> {
                                   ),
                                   DetailCard(
                                     showicon: checkDatetime(
-                                        '${dataRaceDetails.sprint!.date} ${dataRaceDetails.sprint!.time!}'),
-                                    nextPage: SprintResult(roundNo: dataRaceDetails.round),
-                                    time: convertTimeFormat(dataRaceDetails.sprint!.time!),
-                                    date: convertDateFormat1(
-                                        '${dataRaceDetails.sprint!.date}, ${dataRaceDetails.sprint!.time!}'),
-                                    title: 'Sprint',
+                                        '${dataRaceDetails.qualifying!.date} ${dataRaceDetails.qualifying!.time!}'),
+                                    nextPage: QualifyingResults(roundNo: dataRaceDetails.round),
+                                    time: convertTimeFormat(dataRaceDetails.qualifying!.time!),
+                                    date: convertDateFormat(
+                                        '${dataRaceDetails.qualifying!.date}, ${dataRaceDetails.qualifying!.time!}'),
+                                    title: 'Qualifying',
                                   ),
                                   Container(
                                     // width: 1,
