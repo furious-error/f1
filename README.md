@@ -15,4 +15,9 @@ standings and schedules.
 ◦ Countdown Timer: Displayed the time remaining until the next race with an interactive and user-friendly interface.
 
 ## Screenshots
-![alt text]([http://url/to/img.png](https://drive.google.com/file/d/17C6lYyUys8prnnJI57TikcbGGVofGakL/view?usp=drive_link))
+![alt text]([https://i.ibb.co/kM5QxFj/Whats-App-Image-2024-07-17-at-1-43-02-PM-2.jpg])
+![alt text]([https://i.ibb.co/3YXs9MP/Whats-App-Image-2024-07-17-at-1-43-01-PM.jpg])
+![alt text]([https://i.ibb.co/g74wtCv/Whats-App-Image-2024-07-17-at-1-43-01-PM-1.jpg])
+![alt text]([https://i.ibb.co/74W2fZ0/Whats-App-Image-2024-07-17-at-1-43-01-PM-2.jpg])
+![alt text]([https://i.ibb.co/883cBmZ/Whats-App-Image-2024-07-17-at-1-43-02-PM.jpg])
+![alt text]([https://i.ibb.co/JHqtStm/Whats-App-Image-2024-07-17-at-1-43-02-PM-1.jpg])
